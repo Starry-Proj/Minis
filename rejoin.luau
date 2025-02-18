@@ -1,5 +1,7 @@
 local _script = [[
 
+task.wait(5)
+
 local Players = game:GetService("Players")
 local TeleportService = game:GetService("TeleportService")
 
