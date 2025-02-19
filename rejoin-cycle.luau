@@ -1,27 +1,18 @@
 local cycler = [[
+local innerCycle = `pcall(function()task.wait(math.random(1.5, 3))local a=game:GetService("Players")local b=game:GetService("TeleportService")local c=a.LocalPlayer;local d=game.PlaceId;task.wait(0.5)while task.wait(0.5)do b:Teleport(d,c)end;end)`
 
-    print("Connected (1/3)")
-    
-    task.wait(2)
-    
-    local Players = game:GetService("Players")
-    local TeleportService = game:GetService("TeleportService")
-    
-    local localPlayer = Players.LocalPlayer
-    local gameId = game.PlaceId
-    
-    queue_on_teleport(`loadstring(game:HttpGet("https://raw.githubusercontent.com/Starry-Proj/Minis/refs/heads/main/rejoin-cycle.luau"))()`)
-    print("Saved cycle (2/3)")
-    
-    task.wait(0.5)
-    
-    while task.wait() do
-        TeleportService:Teleport(gameId, localPlayer)
-    end
-    
-    print("Rejoining... (3/3)")
+local file = "Starry//Cycles//Rejoin-Cycle.luau"
 
-]]
+queue_on_teleport(readfile(file))
 
-queue_on_teleport(cycler)
-loadstring(cycler)()
+task.spawn(function()
+    loadstring(innerCycle)()
+end)]]
+
+local file = "Starry//Cycles//Rejoin-Cycle.luau"
+
+if not isfile(file) then
+    writefile(file, cycler)
+end
+
+loadstring(readfile(file))()
